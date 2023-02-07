@@ -61,10 +61,10 @@ public class Main {
     }
 
     private static void accelerateCar() {
-        System.out.println("Acceleracion = "+maxAccel*(carDistance/sec_distance(myCarSpeed))+"\n"+
+        System.out.println("Acceleracion = "+maxAccel*(((sec_distance(myCarSpeed)*100)/carDistance)/100)+"\n"+
                 "Carrodistancia"+carDistance+"\n"+
                 "distancia sefuridad ="+sec_distance(myCarSpeed));
-        myCarSpeed+=(maxAccel*(carDistance/sec_distance(myCarSpeed)));
+        myCarSpeed+=(maxAccel*(((sec_distance(myCarSpeed)*100)/carDistance)/100));
     }
 
 
@@ -75,7 +75,7 @@ public class Main {
         return round((3.6 * mps));
     }
     public static int sec_distance(double speed){
-        return (int)((speed/10)*(speed/10)); //legal security distance formula (in spain)
+        return (int)((speed/10)*(speed/10)+1); //legal security distance formula (in spain)
     }
     public static ArrayList<Double> getSpeeds(ArrayList<Double> speeds){
         try {
