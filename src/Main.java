@@ -41,7 +41,7 @@ public class Main {
             System.out.println("Distancia = "+ carDistance);            //Test
             System.out.println("Su velocidad es = "+ kmph_to_mps(e));   //Test
             System.out.println("Mi velocidad es = "+myCarSpeed);        //Test
-            if(carDistance >= sec_distance(myCarSpeed)){
+            if(carDistance >= sec_distance(mps_to_kmph(myCarSpeed))){
                 accelerateCar();
                 System.out.println("Acelera hombre que se te escapa"); //Test
                 //double desiredDistance = sec_distance(myCarSpeed);
@@ -58,15 +58,24 @@ public class Main {
     }
 
     private static void brakeCar() {
-        myCarSpeed-=Math.min(maxBreak,carDistance*0.5);
-    }
+        if(carDistance<=(sec_distance(mps_to_kmph(myCarSpeed))/2)){
+            myCarSpeed=maxBreak;
+
+        }else{
+        myCarSpeed-=maxBreak-(carDistance*0.1);
+    }}
 
     private static void accelerateCar() {
         System.out.println("Acceleracion = "+maxAccel*(((sec_distance(myCarSpeed)*100)/carDistance)/100)+"\n"+
                 "Carrodistancia"+carDistance+"\n"+
-                "distancia sefuridad ="+sec_distance(myCarSpeed));
-        myCarSpeed+=Math.min(maxAccel,maxAccel*(carDistance-sec_distance(mps_to_kmph(myCarSpeed)))*0.5);
+                "distancia sefuridad ="+sec_distance(mps_to_kmph(myCarSpeed)));
+        if(carDistance>(sec_distance(mps_to_kmph(myCarSpeed))*2)){
+            myCarSpeed+=maxAccel;
+        }else {
+            myCarSpeed += Math.min(maxAccel, maxAccel * (carDistance - sec_distance(mps_to_kmph(myCarSpeed))) * 0.4);
+        }
     }
+
 
 
     public static double kmph_to_mps(double kmph){
