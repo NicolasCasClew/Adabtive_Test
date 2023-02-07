@@ -35,6 +35,7 @@ public class Main {
 
         for(double e:speeds){
             checkCrash();
+            spacer();
 
             carDistance=updateDistance(kmph_to_mps(e),myCarSpeed,carDistance);
             System.out.println("Distancia = "+ carDistance);            //Test
@@ -49,7 +50,7 @@ public class Main {
                 System.out.println("Quieto parao que te pasas bruto");  //Test
             }
         }
-
+        System.out.println("DONE :)");
     }
 
     private static double updateDistance(double car1Speed, double car2Speed, double initialDistance) {
@@ -64,7 +65,7 @@ public class Main {
         System.out.println("Acceleracion = "+maxAccel*(((sec_distance(myCarSpeed)*100)/carDistance)/100)+"\n"+
                 "Carrodistancia"+carDistance+"\n"+
                 "distancia sefuridad ="+sec_distance(myCarSpeed));
-        myCarSpeed+=Math.min(maxAccel,maxAccel*(carDistance-sec_distance(myCarSpeed))/10);
+        myCarSpeed+=Math.min(maxAccel,maxAccel*(carDistance-sec_distance(mps_to_kmph(myCarSpeed)))*0.5);
     }
 
 
@@ -92,5 +93,8 @@ public class Main {
     }
     public static double round(double number){
         return (Math.round(number*100)/100);
+    }
+    public static void spacer(){
+        System.out.println("________________________________________________________________");
     }
 }
