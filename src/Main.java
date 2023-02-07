@@ -57,14 +57,14 @@ public class Main {
     }
 
     private static void brakeCar() {
-        Math.max(myCarSpeed-=(maxBreak*(carDistance*0.5)),0);
+        myCarSpeed-=Math.min(maxBreak,carDistance*0.5);
     }
 
     private static void accelerateCar() {
         System.out.println("Acceleracion = "+maxAccel*(((sec_distance(myCarSpeed)*100)/carDistance)/100)+"\n"+
                 "Carrodistancia"+carDistance+"\n"+
                 "distancia sefuridad ="+sec_distance(myCarSpeed));
-        myCarSpeed+=(maxAccel*(((sec_distance(myCarSpeed)*100)/carDistance)/100));
+        myCarSpeed+=Math.min(maxAccel,maxAccel*(carDistance-sec_distance(myCarSpeed))/10);
     }
 
 
@@ -74,15 +74,15 @@ public class Main {
     public static double mps_to_kmph(double mps) {
         return round((3.6 * mps));
     }
-    public static int sec_distance(double speed){
-        return (int)((speed/10)*(speed/10)+1); //legal security distance formula (in spain)
+    public static double sec_distance(double speed){
+        return (((speed/10)*(speed/10))+1); //legal security distance formula (in spain)
     }
     public static ArrayList<Double> getSpeeds(ArrayList<Double> speeds){
         try {
             Scanner sc = new Scanner(new File("src/speeds.txt"));
             while (sc.hasNextLine()) {
                 speeds.add(sc.nextDouble()); //add speeds directly ass m/s??
-                //System.out.println("Leido");
+
             }
             sc.close();
         } catch (FileNotFoundException e) {
